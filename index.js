@@ -5,10 +5,10 @@ const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
 
-  // 🎬 GIF
+  // GIF
   bot.sendAnimation(chatId, "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjkycmI0emFhMnhyOXBwbjVucTc1amMwMDBtdGZkcGd1dWw2YXI3ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qErKT3fGsg6Mm23nZN/giphy.gif");
 
-  // 🖼 IMAGE + BUTTON
+  // Image + Buttons
   bot.sendPhoto(chatId, "https://i.imgur.com/8Km9tLL.jpeg", {
     caption: `✨ WELCOME TO VIRAL VIDEO BOT ✨
 
@@ -32,10 +32,6 @@ bot.onText(/\/start/, (msg) => {
         [
           { text: "💕 Pakistan 🇵🇰", url: "https://viral13236.blogspot.com" },
           { text: "💕 Instagram", url: "https://viral13236.blogspot.com" }
-        ],
-        [
-          { text: "📽 ভিডিও দেখুন", url: "https://viral13236.blogspot.com" },
-          { text: "🔥 Unlock Now", url: "https://viral13236.blogspot.com" }
         ]
       ]
     }
