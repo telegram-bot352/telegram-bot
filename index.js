@@ -2,34 +2,41 @@ const express = require("express");
 const TelegramBot = require("node-telegram-bot-api");
 
 const app = express();
-
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 
-// START + BUTTON
+// START UI
 bot.onText(/\/start/, (msg) => {
-  bot.sendMessage(msg.chat.id,
-    "✨ WELCOME TO VIRAL VIDEO BOT ✨\n\n👇 নিচের button ব্যবহার করুন",
+  bot.sendPhoto(
+    msg.chat.id,
+    "https://i.imgur.com/4AiXzf8.jpeg",
     {
+      caption:
+        "🔥 *VIRAL VIDEO BOT* 🔥\n\n" +
+        "📌 Exclusive viral content available\n" +
+        "⚡ Click buttons below to continue\n\n" +
+        "👇 Choose option:",
+      parse_mode: "Markdown",
       reply_markup: {
         inline_keyboard: [
-          [{ text: "💖 Backup Channel", url: "https://t.me/secretworld234" }],
-          [{ text: "💞 Video Channel", url: "https://t.me/secretworld234" }],
-          [{ text: "🎥 ভিডিও দেখুন", callback_data: "watch" }]
+          [{ text: "📢 Join Channel", url: "https://t.me/secretworld234" }],
+          [{ text: "🎬 Watch Video", url: "https://t.me/secretworld234" }],
+          [
+            { text: "💞 Video Channel", url: "https://viral13236.blogspot.com" },
+            { text: "💞 Tiktoker", url: "https://viral13236.blogspot.com" }
+          ],
+          [
+            { text: "💞 Bangladesh 🇧🇩", url: "https://viral13236.blogspot.com" },
+            { text: "💞 Korean 🇰🇷", url: "https://viral13236.blogspot.com" }
+          ],
+          [
+            { text: "💞 Pakistan 🇵🇰", url: "https://viral13236.blogspot.com" },
+            { text: "💞 Instagram", url: "https://viral13236.blogspot.com" }
+          ],
+          [{ text: "🎥 ভিডিও দেখুন", url: "https://viral13236.blogspot.com" }]
         ]
       }
     }
   );
-});
-
-// BUTTON CLICK
-bot.on("callback_query", (query) => {
-  const chatId = query.message.chat.id;
-
-  if (query.data === "watch") {
-    bot.sendMessage(chatId, "🎥 ভিডিও দেখতে নিচে ক্লিক করুন:\nhttps://viral13236.blogspot.com");
-  }
-
-  bot.answerCallbackQuery(query.id);
 });
 
 // SERVER
