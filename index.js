@@ -4,23 +4,17 @@ const express = require("express");
 const TOKEN = process.env.BOT_TOKEN;
 const bot = new TelegramBot(TOKEN, { polling: true });
 
-// keep alive server (Render sleep fix)
+// keep alive server
 const app = express();
 app.get("/", (req, res) => res.send("Bot is running"));
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);
 
-// START command
+// START
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
 
-  // 🔥 GIF (MUST)
-  bot.sendAnimation(
-    chatId,
-    "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjkycmI0emFhMnhyOXBwbjVucTc1amMwMDBtdGZkcGd1dWw2YXI3ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qErKT3fGsg6Mm23nZN/giphy.gif"
-  );
-
-  // 🔘 Buttons (2nd image style)
+  // 🔘 Buttons
   const keyboard = {
     inline_keyboard: [
       [
@@ -45,12 +39,17 @@ bot.onText(/\/start/, (msg) => {
     ]
   };
 
-  // ✨ Message
+  // ✨ CENTER TEXT
   bot.sendMessage(
     chatId,
-    "✨ WELCOME TO VIRAL VIDEO BOT ✨\n\n" +
-    "✅ আমাদের সব চ্যানেলে জয়েন করুন ✅\n\n" +
-    "📽 ভিডিও দেখতে হলে নিচের বাটনগুলো ব্যবহার করুন 👇",
-    { reply_markup: keyboard }
+    `<b>✨ WELCOME TO VIRAL VIDEO BOT ✨</b>
+
+<b>✅ আমাদের সব চ্যানেলে জয়েন করুন ✅</b>
+
+<b>📽 ভিডিও দেখতে হলে নিচের বাটনগুলো ব্যবহার করুন 👇</b>`,
+    {
+      parse_mode: "HTML",
+      reply_markup: keyboard
+    }
   );
 });
