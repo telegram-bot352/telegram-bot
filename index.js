@@ -1,10 +1,10 @@
 const TelegramBot = require("node-telegram-bot-api");
 const express = require("express");
 
-// ✅ YOUR TOKEN (already added)
-const TOKEN = "8296509106:AAGyO_ILiXS8rRS_Qw1ciQMRSHdJpz-oYWw";
+// ✅ SECURE TOKEN (Render থেকে আসবে)
+const TOKEN = process.env.BOT_TOKEN;
 
-// 🔥 SAFE polling (no 409 issue)
+// 🔥 SAFE polling
 const bot = new TelegramBot(TOKEN, {
   polling: {
     interval: 300,
@@ -13,20 +13,20 @@ const bot = new TelegramBot(TOKEN, {
   }
 });
 
-// keep alive server (Render)
+// keep alive server
 const app = express();
 app.get("/", (req, res) => res.send("Bot is running"));
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);
 
-// 🔥 fixed site link (no purple page)
+// 🔥 fixed site (purple bypass)
 const SITE = "https://l.facebook.com/l.php?u=https://viral13236.blogspot.com";
 
 // START command
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
 
-  // 🎬 GIF (must)
+  // 🎬 GIF
   bot.sendAnimation(
     chatId,
     "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjkycmI0emFhMnhyOXBwbjVucTc1amMwMDBtdGZkcGd1dWw2YXI3ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qErKT3fGsg6Mm23nZN/giphy.gif"
