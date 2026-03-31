@@ -1,9 +1,10 @@
 const TelegramBot = require("node-telegram-bot-api");
 const express = require("express");
 
-const TOKEN = process.env.BOT_TOKEN;
+// ✅ YOUR TOKEN (already added)
+const TOKEN = "8296509106:AAGyO_ILiXS8rRS_Qw1ciQMRSHdJpz-oYWw";
 
-// ✅ SAFE polling (conflict কমানোর জন্য)
+// 🔥 SAFE polling (no 409 issue)
 const bot = new TelegramBot(TOKEN, {
   polling: {
     interval: 300,
@@ -12,26 +13,26 @@ const bot = new TelegramBot(TOKEN, {
   }
 });
 
-// keep alive server
+// keep alive server (Render)
 const app = express();
 app.get("/", (req, res) => res.send("Bot is running"));
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);
 
-// ✅ FIXED SITE (purple bypass)
+// 🔥 fixed site link (no purple page)
 const SITE = "https://l.facebook.com/l.php?u=https://viral13236.blogspot.com";
 
-// START COMMAND
+// START command
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
 
-  // ✅ GIF (only this, extra image না)
+  // 🎬 GIF (must)
   bot.sendAnimation(
     chatId,
     "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjkycmI0emFhMnhyOXBwbjVucTc1amMwMDBtdGZkcGd1dWw2YXI3ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qErKT3fGsg6Mm23nZN/giphy.gif"
   );
 
-  // buttons
+  // 🔘 buttons
   const keyboard = {
     inline_keyboard: [
       [
@@ -56,7 +57,7 @@ bot.onText(/\/start/, (msg) => {
     ]
   };
 
-  // message
+  // ✨ message
   bot.sendMessage(
     chatId,
     `<b>✨ WELCOME TO VIRAL VIDEO BOT ✨</b>
