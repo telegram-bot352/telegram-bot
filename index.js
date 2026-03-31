@@ -1,90 +1,43 @@
-const TelegramBot = require("node-telegram-bot-api");
+const { Telegraf } = require("telegraf");
 const express = require("express");
-
-const TOKEN = process.env.BOT_TOKEN;
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-let bot;
+const bot = new Telegraf(process.env.BOT_TOKEN);
 
-// 🔁 bot start function (auto restart)
-function startBot() {
-  bot = new TelegramBot(TOKEN, {
-    polling: {
-      interval: 300,
-      autoStart: true,
-      params: { timeout: 10 }
-    }
-  });
-
-  console.log("Bot started ✅");
-
-  // ❗ error ধরলেই restart
-  bot.on("polling_error", (err) => {
-    console.log("Polling error:", err.message);
-    restartBot();
-  });
-
-  bot.on("error", (err) => {
-    console.log("Bot error:", err.message);
-    restartBot();
-  });
-
-  // ✅ /start
-  bot.onText(/\/start/, (msg) => {
-    const chatId = msg.chat.id;
-
-    const SITE = "https://viral13236.blogspot.com/?m=1";
-    const TG = "https://t.me/secretworld234";
-
-    const keyboard = {
-      inline_keyboard: [
-        [
-          { text: "Backup Channel", url: TG },
-          { text: "Watch Channel", url: TG }
-        ],
-        [
-          { text: "Tiktoker", url: SITE },
-          { text: "Bangladeshi 🇧🇩", url: SITE }
-        ],
-        [
-          { text: "USA 🇺🇸", url: SITE },
-          { text: "Pakistan 🇵🇰", url: SITE }
-        ],
-        [
-          { text: "Instagram", url: SITE },
-          { text: "🎬 ভিডিও দেখুন", url: SITE }
-        ]
+// Inline Keyboard
+const keyboard = {
+  reply_markup: {
+    inline_keyboard: [
+      [
+        { text: "💖 Backup Channel", url: "https://t.me/secretworld234" },
+        { text: "💖 Video Channel", url: "https://t.me/secretworld234" }
+      ],
+      [
+        { text: "💖 Tiktoker", web_app: { url: "https://viral13236.blogspot.com/?m=1" } },
+        { text: "💖 Bangladeshi 🇧🇩", web_app: { url: "https://viral13236.blogspot.com/?m=1" } }
+      ],
+      [
+        { text: "💖 USA 🇺🇸", web_app: { url: "https://viral13236.blogspot.com/?m=1" } },
+        { text: "💖 Pakistan 🇵🇰", web_app: { url: "https://viral13236.blogspot.com/?m=1" } }
+      ],
+      [
+        { text: "💖 Instagram", web_app: { url: "https://viral13236.blogspot.com/?m=1" } }
+      ],
+      [
+        { text: "🎬 ভিডিও দেখুন", web_app: { url: "https://viral13236.blogspot.com/?m=1" } }
       ]
-    };
+    ]
+  }
+};
 
-    bot.sendAnimation(
-      chatId,
-      "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjkycmI0emFhMnhyOXBwbjVucTc1amMwMDBtdGZkcGd1dWw2YXI3ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qErKT3fGsg6Mm23nZN/giphy.gif",
-      {
-        caption: `✨ WELCOME TO VIRAL VIDEO BOT ✨
+// Start Command
+bot.start((ctx) => {
+  ctx.reply("Welcome 💖", keyboard);
+});
 
-✅ আমাদের সব চ্যানেলে জয়েন করুন ✅
+// WebApp সার্ভার চালু
+app.get("/", (req, res) => res.send("Bot alive ✅ — WebApp running"));
+app.listen(PORT, () => console.log(`Web App running on port ${PORT}`));
 
-🎬 ভিডিও দেখতে নিচের বাটন ব্যবহার করুন 👇`,
-        reply_markup: keyboard
-      }
-    );
-  });
-}
-
-// 🔁 restart function
-function restartBot() {
-  try {
-    bot.stopPolling();
-  } catch (e) {}
-  console.log("Restarting bot... 🔁");
-  setTimeout(startBot, 2000);
-}
-
-// 🚀 start
-startBot();
-
-// 🌐 keep alive (Render sleep prevent)
-const app = express();
-app.get("/", (req, res) => res.send("Bot alive ✅"));
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+bot.launch();
